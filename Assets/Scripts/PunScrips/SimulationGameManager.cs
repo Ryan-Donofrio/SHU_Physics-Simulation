@@ -23,7 +23,7 @@ public class SimulationGameManager : MonoBehaviourPunCallbacks
     
     private void Start()
     {
-        PhotonNetwork.Instantiate("PlayerHolderUpdated", spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, Quaternion.identity);
+        createNewPlayer();
         roomname.text = PhotonNetwork.CurrentRoom.Name.ToString();
         playerName.text = PhotonNetwork.LocalPlayer.NickName.ToString();
     }
@@ -33,27 +33,10 @@ public class SimulationGameManager : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        //foreach (Transform a in contentplayerlist)
-            //Destroy(a.gameObject);
-        //foreach (Player player in PhotonNetwork.PlayerList)
-        //{
-            //GameObject playerlist = Instantiate(Playerlisting, contentplayerlist) as GameObject;
-            //playerlist.transform.Find("Name").GetComponent<Text>().text = player.NickName;
-            //playerlist.transform.Find("private ID").GetComponent<Text>().text = player.ActorNumber.ToString();
-        //}
-        //base.OnPlayerLeftRoom(otherPlayer);
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        //foreach (Transform a in contentplayerlist)
-            // Destroy(a.gameObject);
-        //foreach (Player player in PhotonNetwork.PlayerList)
-        //{
-            //GameObject playerlist = Instantiate(Playerlisting, contentplayerlist) as GameObject;
-            //playerlist.transform.Find("private ID").GetComponent<Text>().text = player.ActorNumber.ToString();
-            //playerlist.transform.Find("Name").GetComponent<Text>().text = player.NickName;
-        //}
-        //base.OnPlayerEnteredRoom(newPlayer);
+        createNewPlayer();
     }
 
     public void callrpc()
@@ -73,8 +56,11 @@ public class SimulationGameManager : MonoBehaviourPunCallbacks
         Debug.Log("Player count: " + PhotonNetwork.CountOfPlayers);
         Debug.Log("Player name: " + PhotonNetwork.LocalPlayer.NickName);
         Debug.Log("Current lobby: " + PhotonNetwork.CurrentLobby);
-        
+    }
 
+    public void createNewPlayer()
+    {
+        PhotonNetwork.Instantiate("PlayerHolderUpdated", spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, Quaternion.identity);
     }
 }
 
