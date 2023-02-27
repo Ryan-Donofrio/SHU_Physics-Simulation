@@ -4,17 +4,24 @@ using Game;
 public class Airtime : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Rigidbody rock;
+    [SerializeField] public GameObject rock;
     public float starttime;
     public float endtime;
     public float time;
-    public ProjectileController objL;
+    //public ProjectileController objL;
     public bool firstCollision;
+    public float startzpos;
+    public float endzpos;
+    public float zdistance;
 
-
-    public void starttimmer()
+    private void Start()
+    {
+        startzpos = rock.transform.position.z;
+    }
+    public void StartTimer()
     {
         starttime += Time.time;
+        Debug.Log("Start Timer " + starttime);
         firstCollision = false;
     }
 
@@ -23,7 +30,7 @@ public class Airtime : MonoBehaviour
         endtime += Time.time;
         time = endtime - starttime;
         firstCollision = true;
-        MenuController.GetMenuController.SetAirtimeText(time.ToString("F2"));
+        MenuController.GetMenuController.SetAirtimeText(time.ToString());
 
     }
     public void OnCollisionEnter(Collision collision)
@@ -31,8 +38,15 @@ public class Airtime : MonoBehaviour
         if (firstCollision == false)
         {
             endtimer();
-            //objL.Freeze();
+            HorizontalDistance();
         }
+    }
+
+    public void HorizontalDistance()
+    {
+        endzpos = rock.transform.position.z;
+        zdistance = endzpos - startzpos;
+        MenuController.GetMenuController.SetHorisontalDistance(zdistance);
     }
 
     public void resettimer()

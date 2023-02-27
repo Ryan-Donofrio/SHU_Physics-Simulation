@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game;
 
 public class ObjectLauncher : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class ObjectLauncher : MonoBehaviour
     public float bulletSpeed;
     public float releaseAngle;
     public Rigidbody projectileRB;
-    public float startheight;
+    public Vector3 startheight;
+    public float projectileHeight;
+    public float projectileMaxHeight;
 
     //Private variables
     private bool projectileLaunched = false;
@@ -27,6 +30,12 @@ public class ObjectLauncher : MonoBehaviour
         get { return projectile; }
     }
 
+
+    private void Start()
+    {
+        startheight = projectileRB.transform.position;
+        ResetPos();
+    }
     private void Awake()
     {
         if (objectLauncher != null)
@@ -34,7 +43,12 @@ public class ObjectLauncher : MonoBehaviour
         else
             objectLauncher = this;
 
-        ResetPos();
+        
+    }
+
+    private void Update()
+    {
+        MaxHeight();
     }
 
     public void Fire()
@@ -50,7 +64,7 @@ public class ObjectLauncher : MonoBehaviour
         //Add two equations here in vector 3
         projectileRB.AddForce(releaseVector);
         projectileLaunched = true;
-        Debug.Log("fire in projectilController script");
+        Debug.Log("fire in projectile Controller script");
     }
 
     public void ResetPos(bool hideObject = false)
@@ -59,7 +73,7 @@ public class ObjectLauncher : MonoBehaviour
         projectileRB.velocity = Vector3.zero;
         projectileRB.freezeRotation = true;
         projectile.transform.rotation = Quaternion.identity;
-        projectile.transform.position = new Vector3(0, startheight, 0);
+        projectile.transform.position = startheight;
         projectileLaunched = false;
 
         if (hideObject)
@@ -68,6 +82,10 @@ public class ObjectLauncher : MonoBehaviour
             gameObject.SetActive(true);
 
         //Debug.Log("reset in projectileController script");
+
+        //ResetHorizonalHeight
+        projectileHeight = 0;
+        projectileMaxHeight = 0;
     }
 
 
@@ -93,12 +111,12 @@ public class ObjectLauncher : MonoBehaviour
 
     public void StartHeight(float value)
     {
-        startheight = value;
+        startheight.y = value;
 
         if (projectileLaunched)
             return;
 
-        projectile.transform.position = new Vector3(0, startheight, 0);
+        projectile.transform.position = startheight;
     }
 
     public void UpdateProjectileMass(float value)
@@ -116,4 +134,15 @@ public class ObjectLauncher : MonoBehaviour
 
         //projectileRB = value;
     }
+
+    public void MaxHeight()
+    {
+        projectileHeight = projectile.transform.position.y;
+        if (projectileHeight > projectileMaxHeight)
+        {
+            projectileMaxHeight = projectileHeight;
+        }
+        MenuController.GetMenuController.SetMaxHeightText(projectileMaxHeight - startheight.y);
+    }
 }
+

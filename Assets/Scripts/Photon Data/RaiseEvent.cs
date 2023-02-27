@@ -5,11 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RaiseEvent : MonoBehaviourPun 
 {
-    private Text _TextDisplay;
-    public InputField _TextInput;
+    public TMP_Text _TextDisplay;
+    public TMP_InputField _TextInput;
     public string _TextString;
     private static byte TEXT_CHANGE_EVENT = 0;
 
@@ -19,7 +20,6 @@ public class RaiseEvent : MonoBehaviourPun
     }
     private void Awake()
     {
-        _TextDisplay = GetComponent<Text>();
         //PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
         Debug.Log("is assigned");

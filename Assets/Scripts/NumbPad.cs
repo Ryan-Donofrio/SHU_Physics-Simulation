@@ -7,9 +7,9 @@ using TMPro;
 public class NumbPad : MonoBehaviour
 {
 
-    public Text textComponent;
-    public Text textComponentTwo;
-    public Text textComponentThree;
+    public TMP_Text textComponent;
+    public TMP_Text textComponentTwo;
+    public TMP_Text textComponentThree;
     private string number;
     private string numberTwo;
     private string numberThree;
@@ -20,15 +20,8 @@ public class NumbPad : MonoBehaviour
     public GameObject selectedTwo;
     public GameObject selectedThree;
 
-    [SerializeField] private Text outputText;
-    private const string sVarText = "s = ";
-    private const string uVarText = ",u = ";
-    private const string aVarText = ",a = ";
-    private const string tVarText = ",t = ";
-    private float sVar = 0f;
-    private float uVar = 0f;
-    private float aVar = 0f;
-    private float tVar = 0f;
+    public TMP_Text outputText;
+    
 
     private void Awake()
     {
@@ -134,19 +127,20 @@ public class NumbPad : MonoBehaviour
     {
         if (buttonOne == true)
         {
-            number = "Testing...";
+            //number = "Testing...";
             textComponent.text = number;
         }
         else if (buttonTwo == true)
         {
-            numberTwo = "Testing...";
+            //numberTwo = "Testing...";
             textComponentTwo.text = numberTwo;
         }
         else if (buttonThree == true)
         {
-            numberThree = "Testing...";
+            //numberThree = "Testing...";
             textComponentThree.text = numberThree;
         }
+        OutputInfo();
     }
     public void Delete()
     {
@@ -165,5 +159,10 @@ public class NumbPad : MonoBehaviour
             numberThree = numberThree.Substring(0, numberThree.Length - 1);
             textComponentThree.text = numberThree;
         }
+    }
+
+    public void OutputInfo()
+    {
+        outputText.text = "S = " + number + " + " + numberTwo + " * " + numberThree;
     }
 }

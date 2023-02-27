@@ -16,8 +16,11 @@ namespace Game
         public GameObject tablet;
         public GameObject numPad;
         public GameObject helpPad;
+        public GameObject teacherStats;
         public TextMeshProUGUI airtimeText;
         public TextMeshProUGUI impactForceText;
+        public TextMeshProUGUI maxHeightText;
+        public TextMeshProUGUI horizontalDistance;
 
         [Header("Sliders")]
         [SerializeField] private Slider massSlider;
@@ -39,8 +42,12 @@ namespace Game
         //Text variables
         private const string defaultAirtimeText = "Airtime until impact is: ";
         private const string defaultImpactText = "Force of Initial Impact: ";
+        private const string defaultHorizontalDistanceText = "Total Horizontal Distance: ";
+        private const string defaultVerticleDistanceText = "Peak Vertical Distance: ";
         private bool airtimeSet = false;
         private bool impactSet = false;
+        private bool horizontalSet = false;
+        private bool verticleSet = false;
 
         private static MenuController menuController;
 
@@ -119,6 +126,11 @@ namespace Game
                 Debug.Log("BothPressed");
                 tablet.SetActive(!tablet.activeSelf);
             }
+
+            if (Keyboard.current.spaceKey.wasReleasedThisFrame)
+            {
+                FindObjectOfType<SimulationGameManager>().OutputNetworkingInfo();
+            }
         }
 #endif
 
@@ -150,6 +162,12 @@ namespace Game
             helpPad.SetActive(!helpPad.activeSelf);
         }
 
+        public void ToggleTeacherStats()
+        {
+            teacherStats.SetActive(!teacherStats.activeSelf);
+        }
+
+
         public void SetAirtimeText(string airtime)
         {
             if (airtime == "0")
@@ -173,15 +191,27 @@ namespace Game
             {
                 impactForceText.text = defaultImpactText + "0";
                 impactSet = false;
-                return;
+                
             }
 
 
-            if (!impactSet)
+            else
             {
                 impactForceText.text = defaultImpactText + impactForce;
                 impactSet = true;
+                return;
             }
+        }
+
+        public void SetHorisontalDistance(float distance)
+        {
+            horizontalDistance.text = defaultHorizontalDistanceText + distance;
+        }
+        
+
+        public void SetMaxHeightText(float maxHeight)
+        {
+               maxHeightText.text = defaultVerticleDistanceText + maxHeight;
         }
 
         public void ResetText()
@@ -191,6 +221,10 @@ namespace Game
 
             impactForceText.text = defaultImpactText + "0";
             impactSet = false;
+
+            maxHeightText.text = defaultVerticleDistanceText + "0";
+
+            horizontalDistance.text = defaultHorizontalDistanceText + "0";
         }
 
         public void UpdateProjectileMass()

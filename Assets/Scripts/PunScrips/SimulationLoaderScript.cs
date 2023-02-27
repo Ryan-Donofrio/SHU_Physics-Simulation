@@ -3,44 +3,44 @@ using Photon.Realtime;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine.UI;
 
 namespace ryandonofrio
 {
 
     public class SimulationLoaderScript : MonoBehaviourPunCallbacks
     {
-        private string RoomName;
+        public TMP_InputField UserNameInput;
         public TMP_InputField RoomNameinput;
-        //public Text maxplayercounttext;
-        //public Slider maxplayercountvalue;
-        private bool isConnecting = false;
-        private const string GameVersion = "0.4";
-        private const int MaxPlayersPerRoom = 2;
         public GameObject fade;
-        //public Transform contentscrollview;
-        //public GameObject RoomPrefab;
-        private Dictionary<string, RoomInfo> Rooms = new Dictionary<string, RoomInfo>();
-        //public Text roomscount;
-        //public Text playersinrooms;
-        //public Text playersinlobby;
-        //public Text allplayers;
-        //public InputField roomsearch;
         public Animator loadingscreen;
         public SaveNameScript nicknamesave;
-        //public GameObject character_selection;
+        public GameObject playerPrefab;
+
+        private string lobbyName;
+        private const string GameVersion = "0.4";
+        private const int MaxPlayersPerRoom = 2;
+
         private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.SendRate = 15;
             PhotonNetwork.SerializationRate = 15;
             PhotonNetwork.PhotonServerSettings.AppSettings.AppVersion = "0.4";
-            PhotonNetwork.GameVersion = "0.1";
+            PhotonNetwork.GameVersion = GameVersion;
             PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = GameVersion;
             loadingscreen.gameObject.SetActive(true);
         }
+
+        private void Start()
+        {
+            //DontDestroyOnLoad(playerPrefab);
+            PhotonNetwork.AutomaticallySyncScene = true;
+
+        }
+
         public void SearchForGame()
         {
             fade.SetActive(true);
@@ -72,24 +72,19 @@ namespace ryandonofrio
         {
             loadingscreen.gameObject.SetActive(false);
         }
-        public override void OnRoomListUpdate(List<RoomInfo> roomList)
-        {
 
-        }
-        public void UpdateRoomsScrowView()
-        {
-
-        }
         void JoinRoom(Transform roomname)
         {
             nicknamesave.PlacePlayerName();
             fade.SetActive(true);
-            RoomName = roomname.Find("Name").GetComponent<Text>().text;
+            lobbyName = roomname.Find("Name").GetComponent<Text>().text;
             Invoke("joinnamedroom", 0.25f);
+            Debug.Log("JoinRoom called for " + PhotonNetwork.CurrentRoom);
         }
-        void joinnamedroom()
+        public void joinnamedroom()
         {
-            PhotonNetwork.JoinRoom(RoomName);
+            PhotonNetwork.JoinRoom(RoomNameinput.text);
+            Debug.Log("Joining room " + RoomNameinput.text);
         }
         public override void OnDisconnected(DisconnectCause cause)
         {
@@ -102,8 +97,14 @@ namespace ryandonofrio
         }
         public override void OnJoinedRoom()
         {
-            Debug.Log("Client succesfully joined room");
+            Debug.Log("Client succesfully joined room: " + PhotonNetwork.CurrentRoom);
             PhotonNetwork.LoadLevel("MainScene");
+            if (PhotonNetwork.InRoom)
+            {
+                Debug.Log("Player " + PhotonNetwork.NickName + " is in room " + PhotonNetwork.CurrentRoom);
+            }
+            else
+                Debug.Log("Not in a lobby");
         }
         public void changevaluemaxppl()
         {
@@ -119,6 +120,7 @@ namespace ryandonofrio
             int max = (int)MaxPlayersPerRoom;
             byte maxppl = Convert.ToByte(max);
             PhotonNetwork.CreateRoom(RoomNameinput.text, new RoomOptions { MaxPlayers = maxppl });
+            PhotonNetwork.NickName = UserNameInput.text;
         }
 
     }

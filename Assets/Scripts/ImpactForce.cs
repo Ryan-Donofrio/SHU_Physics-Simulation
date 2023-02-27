@@ -65,7 +65,7 @@ public class ImpactForce : MonoBehaviour, IHitable
 
         if (firstCollision == true)
         {
-            MenuController.GetMenuController.SetImpactText(force.ToString("F2"));
+            MenuController.GetMenuController.SetImpactText(force.ToString());
             firstCollision = false;
         }
     }

@@ -19,7 +19,7 @@ namespace ryandonofrio
         {
             if (!PlayerPrefs.HasKey("PlayerName"))
             {
-                playbtn.interactable = false;
+                //playbtn.interactable = false;
                 //roomsbtn.interactable = false;
             }
             else
