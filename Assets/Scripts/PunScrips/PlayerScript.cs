@@ -7,18 +7,19 @@ using Photon.Realtime;
 
 public class PlayerScript : MonoBehaviourPun
 {
-
+    PhotonView PV;
     private Vector3 targetPosition;
     private Quaternion targetRotation;
-    GameObject playerobject = GameObject.FindGameObjectWithTag("Player");
+    
 
-    void Start()
+    public void Start()
     {
-        
+        GameObject playerobject = GameObject.FindGameObjectWithTag("Player");
+        //PV = playerobject.GetComponentInChildren<PhotonView>();
     }
-    void Update()
+    public void Update()
     {
-        if (playerobject.GetComponentInChildren<PhotonView>().IsMine)
+        if (PV.GetComponentInChildren<PhotonView>().IsMine)
         {
             float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
             float z = Input.GetAxis("Verticle") * Time.deltaTime * 3.0f;

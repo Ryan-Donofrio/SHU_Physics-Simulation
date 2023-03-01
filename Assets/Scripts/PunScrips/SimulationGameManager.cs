@@ -13,7 +13,7 @@ public class SimulationGameManager : MonoBehaviourPunCallbacks
     public TMP_Text playerName;
     public TMP_Text inpt;
     public TMP_Text chat;
-    public Transform[] spawnPoints;
+    //public Transform[] spawnPoints;
 
     [PunRPC]
     public void changetext(string textRPC)
@@ -23,7 +23,7 @@ public class SimulationGameManager : MonoBehaviourPunCallbacks
     
     private void Start()
     {
-        createNewPlayer();
+        //createNewPlayer();
         roomname.text = PhotonNetwork.CurrentRoom.Name.ToString();
         playerName.text = PhotonNetwork.LocalPlayer.NickName.ToString();
     }
@@ -36,7 +36,7 @@ public class SimulationGameManager : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        createNewPlayer();
+        //createNewPlayer();
     }
 
     public void callrpc()
@@ -58,9 +58,9 @@ public class SimulationGameManager : MonoBehaviourPunCallbacks
         Debug.Log("Current lobby: " + PhotonNetwork.CurrentLobby);
     }
 
-    public void createNewPlayer()
-    {
-        PhotonNetwork.Instantiate("PlayerHolderUpdated", spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, Quaternion.identity);
-    }
+    //public void createNewPlayer()
+    //{
+    //    PhotonNetwork.Instantiate("PlayerHolderUpdated", spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, Quaternion.identity);
+   //}
 }
 
