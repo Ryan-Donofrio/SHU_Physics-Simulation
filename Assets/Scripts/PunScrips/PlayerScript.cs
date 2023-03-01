@@ -15,16 +15,16 @@ public class PlayerScript : MonoBehaviourPun
     public void Start()
     {
         GameObject playerobject = GameObject.FindGameObjectWithTag("Player");
-        //PV = playerobject.GetComponentInChildren<PhotonView>();
+        PV = playerobject.GetComponentInChildren<PhotonView>();
     }
     public void Update()
     {
         if (PV.GetComponentInChildren<PhotonView>().IsMine)
         {
-            float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-            float z = Input.GetAxis("Verticle") * Time.deltaTime * 3.0f;
-            transform.Rotate(0, x, 0);
-            transform.Translate(0, 0, z);
+            //float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
+            //float z = Input.GetAxis("Verticle") * Time.deltaTime * 3.0f;
+            //transform.Rotate(0, x, 0);
+            //transform.Translate(0, 0, z);
             photonView.RPC("SyncPositionRotation", RpcTarget.Others, transform.position, transform.rotation);
         
         }

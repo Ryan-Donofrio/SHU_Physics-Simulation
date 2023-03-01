@@ -13615,10 +13615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4965595723416357530}
   - component: {fileID: 4965595723416357535}
-  - component: {fileID: 4965595723416357532}
   - component: {fileID: 4965595723416357534}
-  - component: {fileID: 4965595723416357521}
-  - component: {fileID: 4965595723416357520}
   m_Layer: 0
   m_Name: PunManager
   m_TagString: Player
@@ -13657,28 +13654,6 @@ MonoBehaviour:
   playerName: {fileID: 4965595723044377574}
   inpt: {fileID: 1549877095790906673}
   chat: {fileID: 8252703191420614760}
---- !u!114 &4965595723416357532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4965595723416357531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &4965595723416357534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13703,57 +13678,6 @@ MonoBehaviour:
     width: 200
     height: 50
   WindowId: 100
---- !u!114 &4965595723416357521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4965595723416357531}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f1045d9029558a4684acee4561cd4d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputField: {fileID: 8252703190922892188}
-  sentInformationText: {fileID: 8252703191420614760}
-  sendButton: {fileID: 8252703190179594063}
---- !u!114 &4965595723416357520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4965595723416357531}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a7d0c9d9a4b6340854dc6ad42ca100, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefabs:
-  - {fileID: 4580541207411151653, guid: 698a912560735ce469da213a127b7120, type: 3}
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  selectedPrefab: 0
 --- !u!1 &4965595723416972122
 GameObject:
   m_ObjectHideFlags: 0

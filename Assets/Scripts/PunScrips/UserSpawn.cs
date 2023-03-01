@@ -30,6 +30,7 @@ public class UserSpawn : MonoBehaviourPunCallbacks
 
     public void createNewPlayer()
     {
+        Debug.Log("Players In Room: " + PhotonNetwork.CurrentRoom.PlayerCount);
         PhotonNetwork.Instantiate(playerPrefabs[selectedPrefab].name, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, Quaternion.identity);
     }
 }
