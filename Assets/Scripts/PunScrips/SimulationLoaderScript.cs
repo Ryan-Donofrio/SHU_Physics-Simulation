@@ -97,6 +97,7 @@ namespace ryandonofrio
         }
         public override void OnJoinedRoom()
         {
+            PhotonNetwork.ConnectUsingSettings();
             Debug.Log("Client succesfully joined room: " + PhotonNetwork.CurrentRoom);
             PhotonNetwork.LoadLevel("MainScene2");
             if (PhotonNetwork.InRoom)

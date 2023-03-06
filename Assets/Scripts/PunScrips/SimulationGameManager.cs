@@ -24,6 +24,7 @@ public class SimulationGameManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         //createNewPlayer();
+        PhotonNetwork.AutomaticallySyncScene = true;
         roomname.text = PhotonNetwork.CurrentRoom.Name.ToString();
         playerName.text = PhotonNetwork.LocalPlayer.NickName.ToString();
     }

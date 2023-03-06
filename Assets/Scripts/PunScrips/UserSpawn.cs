@@ -16,7 +16,10 @@ public class UserSpawn : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        createNewPlayer();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            createNewPlayer();
+        }
     }
 
 
