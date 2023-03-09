@@ -6,16 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StartScene.unity
-    guid: e5ed81064b75a94499bbe4c8d84c5fa8
-  - enabled: 1
-    path: Assets/Scenes/MainScene2.unity
-    guid: 26bb80a1a9dcb804c890f5c25c2ab009
-  - enabled: 1
-    path: Assets/Scenes/MainScene.unity
-    guid: 3035c2fc96b985e499b3fab6cd2c87e0
+    path: Assets/Scenes/Networking.unity
+    guid: f37d33ea8f6f0904d93697ece960c0ba
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: b6b2116da73d5e54da58145892f69ae2, type: 2}
-    com.unity.input.settings: {fileID: 11400000, guid: 8f915f685889d794baba97f19e587ce9, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: de942e9d16a2c4b4c9ee2e8ab801dde7, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 2c384bb989d346f44b3209eed2b36fd9, type: 2}
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 09e86a34656db6c469156c780777e3e6, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c08efbab07f464948bcc4790b02514e3, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: d1d1593e233120a459a9e2c1b11df530, type: 2}

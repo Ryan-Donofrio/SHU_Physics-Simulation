@@ -3,19 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Projectile
-  - Bullet
-  - Text
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - MenuUIElement
+  - 
   - Water
   - UI
-  - Player
-  - PlayerBody
   - 
   - 
   - 
@@ -39,7 +34,9 @@ TagManager:
   - 
   - 
   - 
-  - Teleport
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
