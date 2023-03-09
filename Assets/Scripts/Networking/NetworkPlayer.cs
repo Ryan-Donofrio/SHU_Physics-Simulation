@@ -18,7 +18,10 @@ public class NetworkPlayer : MonoBehaviour
     void Start()
     {
         photonView = GetComponent<PhotonView>();
-
+        if(!photonView.IsMine)
+        {
+            Destroy(GetComponent<HeadBodyRig>());
+        }
         XRRig rig = FindObjectOfType<XRRig>();
         headRig = rig.transform.Find("Main Camera");
         leftHandRig = rig.transform.Find("LeftHand Controller");
