@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 namespace ryandonofrio
 {
-
     public class SimulationLoaderScript : MonoBehaviourPunCallbacks
     {
         public TMP_InputField UserNameInput;
@@ -17,111 +16,85 @@ namespace ryandonofrio
         public Animator loadingscreen;
         public SaveNameScript nicknamesave;
         public GameObject playerPrefab;
-
         private string lobbyName;
-        private const string GameVersion = "0.4";
-        private const int MaxPlayersPerRoom = 2;
 
-        private void Awake()
+        void Awake()
         {
+            Debug.Log("Trying to Connect to Server...");
             PhotonNetwork.AutomaticallySyncScene = true;
-            PhotonNetwork.SendRate = 15;
-            PhotonNetwork.SerializationRate = 15;
             PhotonNetwork.PhotonServerSettings.AppSettings.AppVersion = "0.4";
-            PhotonNetwork.GameVersion = GameVersion;
             PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.GameVersion = GameVersion;
+            PhotonNetwork.GameVersion = "0.4";
             loadingscreen.gameObject.SetActive(true);
         }
-
-        private void Start()
+        public void Start()
         {
-            //DontDestroyOnLoad(playerPrefab);
             PhotonNetwork.AutomaticallySyncScene = true;
-
         }
 
-        public void SearchForGame()
-        {
-            fade.SetActive(true);
-            Invoke("joinrandomroom", 0.25f);
-        }
-        public void searchthroughrooms()
-        {
-
-        }
-        public void joinrandomroom()
-        {
-            if (PhotonNetwork.IsConnected)
-            {
-                PhotonNetwork.JoinRandomRoom();
-            }
-        }
         public override void OnConnectedToMaster()
         {
+            Debug.Log("Connected To Master-Server...");
+            Debug.Log("Trying to Connect to Lobby...");
             PhotonNetwork.JoinLobby();
             base.OnConnectedToMaster();
         }
+
         public override void OnJoinedLobby()
         {
+            Debug.Log("Player Joined Lobby Successfully...");
             loadingscreen.SetBool("Fadeloading", true);
             Invoke("disableloading", 0.9f);
             base.OnJoinedLobby();
         }
-        void disableloading()
+
+        public void disableloading()
         {
             loadingscreen.gameObject.SetActive(false);
         }
 
-        void JoinRoom(Transform roomname)
-        {
-            nicknamesave.PlacePlayerName();
-            fade.SetActive(true);
-            lobbyName = roomname.Find("Name").GetComponent<Text>().text;
-            Invoke("joinnamedroom", 0.25f);
-            Debug.Log("JoinRoom called for " + PhotonNetwork.CurrentRoom);
-        }
+        //JOIN ROOM
         public void joinnamedroom()
         {
-            PhotonNetwork.JoinRoom(RoomNameinput.text);
-            Debug.Log("Joining room " + RoomNameinput.text);
+            string roomName = RoomNameinput.text;
+            PhotonNetwork.NickName = UserNameInput.text;
+            PhotonNetwork.JoinRoom(roomName);
+            Debug.Log("Trying to Join Room... " + RoomNameinput.text);
         }
-        public override void OnDisconnected(DisconnectCause cause)
-        {
-            Debug.Log($"Disconected due to: {cause}");
-        }
-        public override void OnJoinRandomFailed(short returnCode, string message)
-        {
-            Debug.Log("No clients have made any rooms");
-            PhotonNetwork.CreateRoom("Random Room " + UnityEngine.Random.Range(1, 1000), new RoomOptions { MaxPlayers = MaxPlayersPerRoom });
-        }
-        public override void OnJoinedRoom()
-        {
-            Debug.Log("Client succesfully joined room: " + PhotonNetwork.CurrentRoom);
-            PhotonNetwork.LoadLevel("MainScene2");
-            if (PhotonNetwork.InRoom)
-            {
-                Debug.Log("Player " + PhotonNetwork.NickName + " is in room " + PhotonNetwork.CurrentRoom);
-            }
-            else
-                Debug.Log("Not in a lobby");
-        }
-        public void changevaluemaxppl()
-        {
 
-        }
+        //CREATE ROOM
         public void CreateRoom()
         {
-            fade.SetActive(true);
-            Invoke("createit", 0.25f);
-        }
-        void createit()
-        {
-            int max = (int)MaxPlayersPerRoom;
-            byte maxppl = Convert.ToByte(max);
-            PhotonNetwork.CreateRoom(RoomNameinput.text, new RoomOptions { MaxPlayers = maxppl });
+            Debug.Log("Tryign to Create Room... " + RoomNameinput.text);
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.MaxPlayers = 20;
+            roomOptions.IsVisible = true;
+            roomOptions.IsOpen = true;
             PhotonNetwork.NickName = UserNameInput.text;
+            PhotonNetwork.JoinOrCreateRoom(RoomNameinput.text, roomOptions, TypedLobby.Default);
+            
         }
 
+        //CREATE ROOM STEP 2
+        public override void OnCreatedRoom()
+        {
+            Debug.Log("Created Room Successfully...");
+            base.OnCreatedRoom();
+        }
+
+        //FINAL
+        public override void OnJoinedRoom()
+        {
+            Debug.Log("Client succesfully joined/created room: " + PhotonNetwork.CurrentRoom);
+            PhotonNetwork.LoadLevel("MainScene2");
+            base.OnJoinedRoom();
+        }
+
+        public override void OnJoinRoomFailed(short returnCode, string message)
+        {
+            base.OnJoinRoomFailed(returnCode, message);
+            Debug.Log("Failed to Join Room For these Resons...           Return code " + returnCode + " Message:  " + message);
+            Debug.Log(RoomNameinput.text);
+        }
     }
 }

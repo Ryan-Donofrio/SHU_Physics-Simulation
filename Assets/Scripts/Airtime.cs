@@ -5,14 +5,15 @@ public class Airtime : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] public GameObject rock;
-    public float starttime;
-    public float endtime;
-    public float time;
+    private float starttime;
+    private float endtime;
+    private float time;
     //public ProjectileController objL;
-    public bool firstCollision;
-    public float startzpos;
-    public float endzpos;
-    public float zdistance;
+    private bool firstCollision;
+    private float startzpos;
+    private float endzpos;
+    private float zdistance;
+    public GameObject menuController;
 
     private void Start()
     {
@@ -46,7 +47,7 @@ public class Airtime : MonoBehaviour
     {
         endzpos = rock.transform.position.z;
         zdistance = endzpos - startzpos;
-        MenuController.GetMenuController.SetHorisontalDistance(zdistance);
+        menuController.GetComponent<MenuController>().SetHorisontalDistance(zdistance);
     }
 
     public void resettimer()

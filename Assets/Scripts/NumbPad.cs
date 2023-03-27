@@ -21,6 +21,8 @@ public class NumbPad : MonoBehaviour
     public GameObject selectedThree;
 
     public TMP_Text outputText;
+    public GameObject textSendRPC;
+    private TMP_Text startText;
     
 
     private void Awake()
@@ -30,6 +32,7 @@ public class NumbPad : MonoBehaviour
 
     private void Start()
     {
+        startText.text = outputText.text;
         buttonOne = true;
         selectedOne.SetActive(true);
         selectedTwo.SetActive(false);
@@ -163,6 +166,9 @@ public class NumbPad : MonoBehaviour
 
     public void OutputInfo()
     {
+
         outputText.text = "S = " + number + " + " + numberTwo + " * " + numberThree;
+        //textSendRPC.GetComponent<NetworkRPC>().callrpc(outputText);
+        outputText.text = startText.text;
     }
 }

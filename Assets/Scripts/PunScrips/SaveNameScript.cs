@@ -6,63 +6,40 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 
-namespace ryandonofrio
-{
     public class SaveNameScript : MonoBehaviourPunCallbacks
     {
-        public TMP_InputField nameInpunField;
-        //public TMP_InputField RoomnameInpunField;
-        public Button playbtn;
-        //public Button roomsbtn;
-        //public Button createbtn;
+        public TMP_InputField nameField;
+        public TMP_InputField roomNameField;
+        public Button joinBtn;
+        public Button createBtn;
+
         void Start()
         {
-            if (!PlayerPrefs.HasKey("PlayerName"))
-            {
-                //playbtn.interactable = false;
-                //roomsbtn.interactable = false;
-            }
-            else
+            joinBtn.interactable = false;
+            createBtn.interactable = false;
+
+            if (PlayerPrefs.HasKey("PlayerName"))
             {
                 string PlayerName = PlayerPrefs.GetString("PlayerName");
-                nameInpunField.text = PlayerName;
-                playbtn.interactable = true;
-                //roomsbtn.interactable = true;
+                nameField.text = PlayerName;
+                joinBtn.interactable = false;
+                createBtn.interactable = false;
             }
-            //createbtn.interactable = false;
-        }
-        public void updatebtninter()
-        {
-            if (!string.IsNullOrEmpty(nameInpunField.text))
-            {
-                playbtn.interactable = true;
-                //roomsbtn.interactable = true;
-            }
-            else
-            {
-                playbtn.interactable = false;
-                //roomsbtn.interactable = false;
-                //createbtn.interactable = false;
-            }
-        }
-        public void updatebtnRoomName()
-        {
-            if (!string.IsNullOrEmpty(nameInpunField.text))
-            {
-                //createbtn.interactable = true;
-            }
-            else
-            {
-                //createbtn.interactable = false;
-            }
-        }
-        public void PlacePlayerName()
-        {
-            string PlayerNickname = nameInpunField.text;
-            PhotonNetwork.NickName = PlayerNickname;
-            PlayerPrefs.SetString("PlayerName", PlayerNickname);
-            Debug.Log("Ranname");
         }
 
+        void Update()
+        {
+            if (!string.IsNullOrEmpty(nameField.text) && !string.IsNullOrEmpty(roomNameField.text))
+            {
+                joinBtn.interactable = true;
+                createBtn.interactable = true;
+            }
+        }
+
+        public void PlacePlayerName()
+        {
+           // PhotonNetwork.NickName = nameField.text;
+           // PlayerPrefs.SetString("PlayerName", nameField.text);
+        }
     }
-}
+

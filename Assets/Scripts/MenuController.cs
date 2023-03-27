@@ -37,7 +37,8 @@ namespace Game
         private Quaternion initialLocalRot;
         private Vector3 initialLocalScale;
         private GameObject PlayerCam;
-        private ObjectLauncher objectLauncher;
+        public GameObject rockObject;
+        private RockManager rockscript;
 
         //Text variables
         private const string defaultAirtimeText = "Airtime until impact is: ";
@@ -48,6 +49,7 @@ namespace Game
         private bool impactSet = false;
         private bool horizontalSet = false;
         private bool verticleSet = false;
+        
 
         private static MenuController menuController;
 
@@ -76,8 +78,8 @@ namespace Game
         private void Start()
         {
             menuInputActionReference.action.started += MenuPressed;
-            objectLauncher = ObjectLauncher.GetObjectLauncher;
-            objectLauncher.ResetPos();
+            rockscript = rockObject.GetComponent<RockManager>();
+            rockscript.ResetPos();
             SetSliderValues(defaultPhysicsValues.GetAllValues());
         }
 
@@ -98,19 +100,19 @@ namespace Game
             {
                 Debug.Log("Setting values to TimeToGroundTest");
                 SetSliderValues(TimeToGroundTest.GetAllValues());
-                objectLauncher.ResetPos();
+                rockscript.ResetPos();
             }
 
             if (Keyboard.current.lKey.wasReleasedThisFrame)
             {
                 Debug.Log("Firing");
-                objectLauncher.Fire();
+                rockscript.Fire();
             }
 
             if (Keyboard.current.rKey.wasReleasedThisFrame)
             {
                 Debug.Log("Resetting projectile");
-                objectLauncher.ResetPos();
+                rockscript.ResetPos();
                 ResetText();
             }
 
@@ -118,7 +120,7 @@ namespace Game
             {
                 Debug.Log("Setting values to default values");
                 SetSliderValues(defaultPhysicsValues.GetAllValues());
-                objectLauncher.ResetPos();
+                rockscript.ResetPos();
             }
 
             if (DevInputActionReference.action.triggered && DevInputActionReference2.action.triggered)
@@ -229,27 +231,27 @@ namespace Game
 
         public void UpdateProjectileMass()
         {
-            objectLauncher.UpdateProjectileMass(massSlider.value);
+            rockscript.UpdateProjectileMass(massSlider.value);
         }
 
         public void UpdateProjectileAngle()
         {
-            objectLauncher.LaunchAngle(angleSlider.value);
+            rockscript.LaunchAngle(angleSlider.value);
         }
 
         public void UpdateProjectileForce()
         {
-            objectLauncher.LaunchForce(launchForceSlider.value);
+            rockscript.LaunchForce(launchForceSlider.value);
         }
 
         public void UpdateProjectileGravity()
         {
-            objectLauncher.UpdateProjectileGravity(gravitySlider.value);
+            rockscript.UpdateProjectileGravity(gravitySlider.value);
         }
 
         public void UpdateProjectileHeight()
         {
-            objectLauncher.StartHeight(launchHeightSlider.value);
+            rockscript.StartHeight(launchHeightSlider.value);
         }
     }
 }

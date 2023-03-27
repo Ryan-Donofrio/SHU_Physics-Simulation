@@ -13,6 +13,7 @@ public class ImpactForce : MonoBehaviour, IHitable
     private Vector3 initialPos;
     private Quaternion initialRot;
     private Rigidbody rb;
+    public GameObject rockOBJCollide;
     public Vector3 InitialPosition
     {
         get { return initialPos; }
@@ -41,7 +42,8 @@ public class ImpactForce : MonoBehaviour, IHitable
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.gameObject == ObjectLauncher.GetObjectLauncher.GetProjectile)
+
+        if(collision.collider.gameObject == rockOBJCollide)
         {
             force = collision.relativeVelocity.magnitude;
             Impacted();

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetworkManager : MonoBehaviourPunCallbacks
+public class NetworkManagerv2_Old: MonoBehaviourPunCallbacks
 {
     public bool connected { get; private set; }
 

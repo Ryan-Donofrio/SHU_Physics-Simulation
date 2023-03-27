@@ -12,9 +12,10 @@ public class ObjectLauncher : MonoBehaviour
     public float bulletSpeed;
     public float releaseAngle;
     public Rigidbody projectileRB;
-    public Vector3 startheight;
+    private Vector3 startheight;
     public float projectileHeight;
     public float projectileMaxHeight;
+    public GameObject menuController;
 
     //Private variables
     private bool projectileLaunched = false;
@@ -31,7 +32,7 @@ public class ObjectLauncher : MonoBehaviour
     }
 
 
-    private void Start()
+    public void Start()
     {
         startheight = projectileRB.transform.position;
         ResetPos();
@@ -142,7 +143,7 @@ public class ObjectLauncher : MonoBehaviour
         {
             projectileMaxHeight = projectileHeight;
         }
-        MenuController.GetMenuController.SetMaxHeightText(projectileMaxHeight - startheight.y);
+        menuController.GetComponent<MenuController>().SetMaxHeightText(projectileMaxHeight - startheight.y);
     }
 }
 
